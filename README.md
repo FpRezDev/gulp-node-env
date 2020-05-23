@@ -14,8 +14,6 @@ Usage
 
 ### Example
 
-Nodemon server:
-
 ```js
 // gulpfile.js
 const { src, dest, series } = require('gulp');
