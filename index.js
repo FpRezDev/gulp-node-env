@@ -31,27 +31,47 @@ const IsTest = () => _IsEnvironment(Test);
 const _SetEnvironment = (env) => process.env.NODE_ENV = env;
 
 /**
- * Set current process.env.NODE_ENV === 'development'
- * @returns {string} current value of process.env.NODE_ENV
+ * @param {*} param parameter to compare
+ * @returns {boolean} eval of param ==== 'undefined'
  */
-const SetDevelopmentEnvironment = () => {
-  return _SetEnvironment(Development);
+const _IsUndefined = (param) => typeof param === 'undefined';
+/**
+ * Set current process.env.NODE_ENV === 'development'
+ * @param {function} callback Callback Function
+ * @returns {string | function} current value of process.env.NODE_ENV | callback
+ */
+const SetDevelopmentEnvironment = (callback) => {
+  let env = _SetEnvironment(Development);
+  if(_IsUndefined(callback)) {
+    return env;
+  }
+  return callback();
 };
 
 /**
  * Set current process.env.NODE_ENV === 'production'
- * @returns {string} current value of process.env.NODE_ENV
+ * @param {function} callback Callback Function
+ * @returns {string | function} current value of process.env.NODE_ENV | callback
  */
-const SetProductionEnvironment = () => {
-  return _SetEnvironment(Production);
+const SetProductionEnvironment = (callback) => {
+  let env = _SetEnvironment(Production);
+  if(_IsUndefined(callback)) {
+    return env;
+  }
+  return callback();
 };
 
 /**
  * Set current process.env.NODE_ENV === 'test'
- * @returns {string} current value of process.env.NODE_ENV
+ * @param {function} callback Callback Function
+ * @returns {string | function} current value of process.env.NODE_ENV | callback
  */
-const SetTestEnvironment = () => {
-  return _SetEnvironment(Test);
+const SetTestEnvironment = (callback) => {
+  let env = _SetEnvironment(Test);
+  if(_IsUndefined(callback)) {
+    return env;
+  }
+  return callback();
 };
 
 exports.IsDevelopment = IsDevelopment;
