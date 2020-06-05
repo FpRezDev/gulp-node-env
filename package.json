@@ -1,6 +1,6 @@
 {
   "name": "gulp-node-env",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Get, Set or evaluate process.env.NODE_ENV",
   "main": "index.js",
   "directories": {
