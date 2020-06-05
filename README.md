@@ -23,30 +23,30 @@ const sourcemaps = require('gulp-sourcemaps');
 const gulpIf = require('gulp-if');
 const cssmin = require("gulp-cssmin");
 const { 
-  SetDevelopmentEnvironment, 
-  SetProductionEnvironment, 
-  SetTestEnvironment,
-  IsTest,
-  IsProduction,
-  IsDevelopment 
+  setDevelopmentEnvironment, 
+  setProductionEnvironment, 
+  setTestEnvironment,
+  isTest,
+  isProduction,
+  isDevelopment 
 } = require('gulp-node-env');
 
 const build = (cb) => {
-  if(IsTest()) {
+  if(isTest()) {
     return cb();
   }
   return src('scss/styles.scss')
           // only make sourcemaps if development
-          .pipe(gulpIf(IsDevelopment(), sourcemaps.init()))
+          .pipe(gulpIf(isDevelopment(), sourcemaps.init()))
           .pipe(sass().on('error', sass.logError))
           // only write sourcemaps if development
-          .pipe(gulpIf(IsDevelopment(), sourcemaps.write('./')))
+          .pipe(gulpIf(isDevelopment(), sourcemaps.write('./')))
           // only minify for production
-          .pipe(gulpIf(IsProduction(), cssmin()))
+          .pipe(gulpIf(isProduction(), cssmin()))
           .pipe(dest('wwwroot/css/'));
 }
 
-exports.build = series(SetProductionEnvironment, build);
-exports.devBuild = series(SetDevelopmentEnvironment, build);
-exports.testBuild = series(SetTestEnvironment, build);
+exports.build = series(setProductionEnvironment, build);
+exports.devBuild = series(setDevelopmentEnvironment, build);
+exports.testBuild = series(setTestEnvironment, build);
 ```
